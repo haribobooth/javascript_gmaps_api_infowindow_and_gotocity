@@ -15,12 +15,17 @@ MapWrapper.prototype = {
       position: coords,
       map: this.googleMap
     });
-    var infoWindow = new google.maps.InfoWindow({
-      content: "Lat: " + marker.position.lat().toFixed(5) + ", Lng: " + marker.position.lng().toFixed(5),
-    });
+
+    this.addMarkerClickEvent(marker);
+  },
+
+  addMarkerClickEvent: function(marker){
     google.maps.event.addListener(marker, 'click', function(event){
+      var infoWindow = new google.maps.InfoWindow({
+        content: "Lat: " + marker.position.lat().toFixed(5) + ", Lng: " + marker.position.lng().toFixed(5),
+      });
       infoWindow.open(this.googleMap, marker);
-    })
+    }.bind(this));
   },
 
   addClickEvent: function(){
